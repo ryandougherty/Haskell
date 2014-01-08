@@ -24,11 +24,11 @@ head' :: [a] -> a
 head' [] = error "Cannot work on empty list!"
 head' (x:_) = x
 
-tell :: (Show a) => [a] -> String
-tell [] = "Empty list"
-tell (x:[]) "One element: " ++ show x
-tell (x:y:[]) "Two elements: " ++ show x ++ ", " ++ show y
-tell (x:y:_) "More than 2 elements, first two are: " ++ show x ++ ", " ++ show y
+tell :: (Show a) => [a] -> String  
+tell [] = "The list is empty"  
+tell (x:[]) = "The list has one element: " ++ show x  
+tell (x:y:[]) = "The list has two elements: " ++ show x ++ " and " ++ show y  
+tell (x:y:_) = "This list is long. The first two elements are: " ++ show x ++ " and " ++ show y 
 
 length' :: (Num b) => [a] -> b
 length' [] = 0
@@ -41,3 +41,24 @@ sum' (x:xs) = x + sum' xs
 capital :: String -> String
 capital "" = "Empty string"
 capital all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
+
+initials :: String -> String -> String  
+initials firstname lastname = [f] ++ ". " ++ [l] ++ "."  
+    where (f:_) = firstname  
+          (l:_) = lastname
+
+calcBmis :: (RealFloat a) => [(a,a)] -> [a]
+calcBmis xs = [bmi w h | (w, h) <- xs]
+	where bmi weight height = weight / height ^ 2
+
+cylinder :: (RealFloat a) => a -> a -> a  
+cylinder r h = 
+    let sideArea = 2 * pi * r * h  
+        topArea = pi * r ^2  
+    in  sideArea + 2 * topArea  
+
+describeList :: [a] -> String  
+describeList xs = "The list is " ++ case xs of [] -> "empty."  
+                                               [x] -> "a singleton list."   
+                                               xs -> "a longer list." 
+
